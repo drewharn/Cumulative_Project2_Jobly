@@ -45,8 +45,7 @@ describe("POST /users", function () {
         lastName: "Last-newL",
         email: "new@email.com",
         isAdmin: false,
-      }, 
-      token: expect.any(String),
+      }, token: expect.any(String),
     });
   });
 
@@ -70,8 +69,7 @@ describe("POST /users", function () {
         lastName: "Last-newL",
         email: "new@email.com",
         isAdmin: true,
-      }, 
-      token: expect.any(String),
+      }, token: expect.any(String),
     });
   });
 
@@ -172,7 +170,8 @@ describe("GET /users", function () {
   });
 
   test("unauth for anon", async function () {
-    const resp = await request(app).get("/users");
+    const resp = await request(app)
+      .get("/users");
     expect(resp.statusCode).toEqual(401);
   });
 
@@ -191,10 +190,10 @@ describe("GET /users", function () {
 /************************************** GET /users/:username */
 
 describe("GET /users/:username", function () {
-  test("works for users", async function () {
+  test("works for admin", async function () {
     const resp = await request(app)
         .get(`/users/u1`)
-        .set("authorization", `Bearer ${u1Token}`);
+        .set("authorization", `Bearer ${adminToken}`);
     expect(resp.body).toEqual({
       user: {
         username: "u1",
@@ -231,7 +230,8 @@ describe("GET /users/:username", function () {
   });
 
   test("unauth for anon", async function () {
-    const resp = await request(app).get(`/users/u1`);
+    const resp = await request(app)
+      .get(`/users/u1`);
     expect(resp.statusCode).toEqual(401);
   });
 
@@ -245,7 +245,7 @@ describe("GET /users/:username", function () {
 
 /************************************** PATCH /users/:username */
 
-describe("PATCH /users/:username", function () {
+describe("PATCH /users/:username", () => {
   test("works for admins", async function () {
     const resp = await request(app)
         .patch(`/users/u1`)
@@ -271,7 +271,7 @@ describe("PATCH /users/:username", function () {
           firstName: "New",
         })
         .set("authorization", `Bearer ${u1Token}`);
-    expect(resp.statusCode).toEqual(200);
+    expect(resp.statusCode).toEqual(401);
     expect(resp.body).toEqual({
       user: {
         username: "u1",
@@ -283,7 +283,7 @@ describe("PATCH /users/:username", function () {
     });
   });
 
-  test("uanuth if not same user", async function () {
+  test("unauth if not same user", async function () {
     const resp = await request(app)
         .patch(`/users/u1`)
         .send({

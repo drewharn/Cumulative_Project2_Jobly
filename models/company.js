@@ -75,7 +75,7 @@ class Company {
 
     if (minEmployees !== undefined) {
       queryValues.push(minEmployees);
-      whereExpressions.push(`num_employees <= $${queryValues.length}`);
+      whereExpressions.push(`num_employees => $${queryValues.length}`);
     }
 
     if (maxEmployees !== undefined) {
@@ -125,7 +125,7 @@ class Company {
     const jobsRes = await db.query(
           `SELECT id, title, salary, equity
           FROM jobs
-          WHERE company_unhandle = $1
+          WHERE company_handle = $1
           ORDER BY id`,
         [handle],
     );

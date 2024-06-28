@@ -89,7 +89,7 @@ describe("register", function () {
     expect(found.rows[0].password.startsWith("$2b$")).toEqual(true);
   });
 
-  test("bad request with dup data", async function () {
+  test("bad request with dupe data", async function () {
     try {
       await User.register({
         ...newUser,

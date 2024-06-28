@@ -33,7 +33,7 @@ class Job {
     return job;
 }
 
-/** Finda all jobs (optional filter on searchFilters).
+/** Find all jobs (optional filter on searchFilters).
  * searchFilters (all optional):
  * - minSalary
  * - hasEquity (true returns only jobs with equity > 0, other values ignored)

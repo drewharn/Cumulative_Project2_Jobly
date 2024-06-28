@@ -60,7 +60,7 @@ describe("create", function () {
 /************************************** findAll */
 
 describe("findAll", function () {
-  test("works: no filter", async function () {
+  test("works: all", async function () {
     let companies = await Company.findAll();
     expect(companies).toEqual([
       {
